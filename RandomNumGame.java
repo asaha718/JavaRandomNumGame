@@ -10,32 +10,38 @@ public class RandomNumGame {
                 "Hard : guess a number - program will tell you if it was equal (you win) or not (you lose) to the program's number"
         };
 
-        System.out.println("Would you like to play Easy(e), Medium(m), Hard(h) : "); 
+        System.out.println("Would you like to play Easy(e), Medium(m), Hard(h) : (input associated letter)");
 
         try (Scanner scanner = new Scanner(System.in);) {
             String levelInput = scanner.nextLine();
 
-            if( levelInput.equals("e") ){ 
-                System.out.println(explanationMessage[0]); 
-                easyVersion();
-            }
-
-            if( levelInput.equals("m")){ 
-                System.out.println(explanationMessage[1]); 
+            if (levelInput.equals("e")) {
+                System.out.println(explanationMessage[0]);
+                easyVersion();  
+            } else if (levelInput.equals("m")) {
+                System.out.println(explanationMessage[1]);
                 mediumVersion();
-            }
-
-            if( levelInput.equals("h")){ 
-                System.out.println(explanationMessage[2]); 
+            } else if (levelInput.equals("h")) {
+                System.out.println(explanationMessage[2]);
                 hardVersion();
+            } else {
+                System.out.println("Not a valid key. Run program again");
             }
 
-        } 
+        }
     }
 
     public static int generateRandomNumber() {
         Random random = new Random();
         return random.nextInt(11);
+    }
+
+    public static boolean rangeChecker(int args) {
+        if (args > 10 || args < 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public static void easyVersion() {
@@ -46,11 +52,16 @@ public class RandomNumGame {
             String numInput = scanner.nextLine();
             num = Integer.parseInt(numInput);
 
-            if (num > generateRandomNumber()) {
-                System.out.println("You win!");
+            if (rangeChecker(num)) {
+                if (num > generateRandomNumber()) {
+                    System.out.println("You win!");
+                } else {
+                    System.out.println("System wins! Better luck next time");
+                }
             } else {
-                System.out.println("System wins! Better luck next time");
+                System.out.println("You didnt pick a number in range");
             }
+            
         }
     }
 
